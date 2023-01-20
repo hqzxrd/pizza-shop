@@ -1,0 +1,12 @@
+.root {
+  width: 400px;
+  font-size: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 10px 5px;
+  border-radius: 12px;
+  order: 0;
+
+  @media (max-width: 1070px) {
+    order: 1;
+  }
+}
