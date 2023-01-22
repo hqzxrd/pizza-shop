@@ -1,16 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setPizzaCount, setCurrentPage } from "../redux/slices/paginationSlice";
+import React, { useContext, useEffect } from "react";
+import { SearchContext } from "../App";
 
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentPage } from "../redux/slices/paginationSlice";
+import { fetchPizzas } from "../redux/slices/pizzasSlice";
 
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import PizzaBlockSkeleton from "../components/PizzaBlock/PizzaBlockSkeleton";
 import Pagination from "../components/Pagination";
-
-import { SearchContext } from "../App";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,29 +18,30 @@ const Home = () => {
   );
   const sortProperty = sort.property;
   const { currentPage } = useSelector((state) => state.paginationSlice);
+  const { pizzas, status } = useSelector((state) => state.pizzasSlice);
   const { searchValue } = useContext(SearchContext);
-  const [pizzas, setPizzas] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const pizzasPerPage = 8;
 
-  useEffect(() => {
-    !searchValue && setIsLoading(true);
+  async function getPizzas() {
     const category = categoryId ? `&category=${categoryId}` : ``;
     const order = sortType ? `&_order=asc` : `&_order=desc`;
     const search = searchValue
       ? `&title_like=${autoTranslater(searchValue)}`
       : ``;
+    dispatch(
+      fetchPizzas({
+        category,
+        sortProperty,
+        order,
+        search,
+        currentPage,
+        pizzasPerPage,
+      })
+    );
+  }
 
-    axios
-      .get(
-        `http://localhost:12552/pizzas?_limit=${pizzasPerPage}&_page=${currentPage}&_sort=${sortProperty}${order}${category}${search}`
-      )
-      .then((res) => {
-        const pizzaCount = res.headers[`x-total-count`];
-        dispatch(setPizzaCount(pizzaCount));
-        setPizzas(res.data);
-        setIsLoading(false);
-      });
+  useEffect(() => {
+    getPizzas();
   }, [categoryId, sortProperty, sortType, currentPage, searchValue]);
 
   useEffect(() => {
@@ -109,7 +109,9 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">{isLoading ? skeletons : items}</div>
+      <div className="content__items">
+        {status === `loading` || status === `error` ? skeletons : items}
+      </div>
       <Pagination />
     </>
   );

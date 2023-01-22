@@ -6,9 +6,8 @@ import styles from "./Pagination.module.scss";
 
 const Pagination = () => {
   const dispatch = useDispatch();
-  const { pizzaCount, pizzasPerPage } = useSelector(
-    (state) => state.paginationSlice
-  );
+  const { pizzasPerPage } = useSelector((state) => state.paginationSlice);
+  const { pizzaCount } = useSelector((state) => state.pizzasSlice);
   return (
     <div className={styles.placeholder}>
       {pizzaCount > 8 && (

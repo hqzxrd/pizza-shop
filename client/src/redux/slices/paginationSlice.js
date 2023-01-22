@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  pizzaCount: 0,
   pizzasPerPage: 8,
   currentPage: 1,
 };
