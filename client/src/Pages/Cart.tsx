@@ -7,15 +7,13 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearProducts } from "../redux/slices/cartSlice";
 
-const Cart = () => {
+const Cart: React.FC = () => {
   const dispatch = useDispatch();
-  const { totalPrice, totalCount, items } = useSelector(
-    (state) => state.cartSlice
+  const { totalPrice, totalCount, pizzas } = useSelector(
+    (state: any) => state.cartSlice
   );
 
-  console.log(totalPrice, items);
-
-  if (!items.length) {
+  if (!pizzas.length) {
     return <CartEmpty />;
   }
   return (
@@ -100,9 +98,8 @@ const Cart = () => {
         </div>
       </div>
       <div className="cart__items">
-        {items &&
-          items.map((item, i) => {
-            console.log(item);
+        {pizzas &&
+          pizzas.map((item: any, i: number) => {
             return <CartItem item={item} key={i} />;
           })}
       </div>
@@ -140,11 +137,7 @@ const Cart = () => {
             <span>Вернуться назад</span>
           </Link>
           <div
-            onClick={() =>
-              totalCount === 0
-                ? alert(`ахуел?`)
-                : alert(`Вы успешно аплатили зоказ`)
-            }
+            onClick={() => alert(`Вы успешно оплатили заказ!`)}
             className="button pay-btn"
           >
             <span>Оплатить сейчас</span>

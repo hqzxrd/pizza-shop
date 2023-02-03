@@ -1,17 +1,33 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
-  totalPrice: 0,
-  totalCount: 0,
-  items: [],
+export type CartPizza = {
+  id: number;
+  title: string;
+  price: number;
+  imageUrl: string;
+  type: string;
+  size: number;
+  count: number;
 };
 
-function calculateTotal(state) {
-  state.totalPrice = state.items.reduce((sum, obj) => {
+interface CartSliceState {
+  totalPrice: number;
+  totalCount: number;
+  pizzas: CartPizza[];
+}
+
+const initialState: CartSliceState = {
+  totalPrice: 0,
+  totalCount: 0,
+  pizzas: [],
+};
+
+function calculateTotal(state: CartSliceState) {
+  state.totalPrice = state.pizzas.reduce((sum: number, obj: CartPizza) => {
     return sum + obj.price * obj.count;
   }, 0);
 
-  state.totalCount = state.items.reduce((sum, obj) => {
+  state.totalCount = state.pizzas.reduce((sum: number, obj: CartPizza) => {
     return sum + obj.count;
   }, 0);
 }
@@ -20,8 +36,8 @@ const cartSlice = createSlice({
   name: `cart`,
   initialState,
   reducers: {
-    addProduct(state, { payload }) {
-      const itemFind = state.items.find(
+    addProduct(state, { payload }: PayloadAction<CartPizza>) {
+      const itemFind = state.pizzas.find(
         (obj) =>
           obj.id === payload.id &&
           obj.type === payload.type &&
@@ -31,26 +47,26 @@ const cartSlice = createSlice({
       if (itemFind) {
         itemFind.count++;
       } else {
-        state.items.push({ ...payload, count: 1 });
+        state.pizzas.push({ ...payload, count: 1 });
       }
 
       calculateTotal(state);
     },
 
-    minusProduct(state, { payload }) {
-      const itemFind = state.items.find(
+    minusProduct(state, { payload }: PayloadAction<CartPizza>) {
+      const itemFind = state.pizzas.find(
         (obj) =>
           obj.id === payload.id &&
           obj.type === payload.type &&
           obj.size === payload.size
       );
-      itemFind.count !== 0 && itemFind.count--;
+      itemFind && itemFind.count !== 0 && itemFind.count--;
 
       calculateTotal(state);
     },
 
-    deleteCartItem(state, { payload }) {
-      const index = state.items
+    deleteCartItem(state, { payload }: PayloadAction<CartPizza>) {
+      const index = state.pizzas
         .map((item) => {
           return (
             item.id === payload.id &&
@@ -61,13 +77,13 @@ const cartSlice = createSlice({
         })
         .indexOf(payload.id);
 
-      state.items.splice(index, 1);
+      state.pizzas.splice(index, 1);
 
       calculateTotal(state);
     },
 
     clearProducts(state) {
-      state.items = [];
+      state.pizzas = [];
 
       calculateTotal(state);
     },

@@ -1,13 +1,13 @@
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentPage } from "../../redux/slices/paginationSlice";
+import { setCurrentPage } from "../../redux/slices/filterSlice";
 
 import styles from "./Pagination.module.scss";
 
 const Pagination = () => {
   const dispatch = useDispatch();
-  const { pizzasPerPage } = useSelector((state) => state.paginationSlice);
-  const { pizzaCount } = useSelector((state) => state.pizzasSlice);
+  const { pizzasPerPage } = useSelector((state: any) => state.filterSlice);
+  const { pizzaCount } = useSelector((state: any) => state.pizzasSlice);
   return (
     <div className={styles.placeholder}>
       {pizzaCount > 8 && (
@@ -19,7 +19,7 @@ const Pagination = () => {
           pageRangeDisplayed={pizzasPerPage}
           pageCount={Math.ceil(pizzaCount / pizzasPerPage)}
           previousLabel="<"
-          renderOnZeroPageCount={null}
+          renderOnZeroPageCount={undefined}
         />
       )}
     </div>

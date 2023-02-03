@@ -2,11 +2,10 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Search from "./Search";
 
-function Header({ searchValue, setSearchValue }) {
-  const { totalPrice, totalCount, items } = useSelector(
-    (state) => state.cartSlice
+const Header = () => {
+  const { totalPrice, totalCount } = useSelector(
+    (state: any) => state.cartSlice
   );
-  console.log(items);
   return (
     <div className="header">
       <div className="container">
@@ -19,7 +18,7 @@ function Header({ searchValue, setSearchValue }) {
             </div>
           </div>
         </Link>
-        <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+        <Search />
         <Link to="/cart">
           <div className="header__cart">
             <div className="button button--cart">
@@ -61,6 +60,6 @@ function Header({ searchValue, setSearchValue }) {
       </div>
     </div>
   );
-}
+};
 
 export default Header;

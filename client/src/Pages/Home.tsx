@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { SearchContext } from "../App";
 
-import { useDispatch, useSelector } from "react-redux";
-import { setCurrentPage } from "../redux/slices/paginationSlice";
+import { useSelector } from "react-redux";
+import { setCurrentPage } from "../redux/slices/filterSlice";
 import { fetchPizzas } from "../redux/slices/pizzasSlice";
 
 import Categories from "../components/Categories";
@@ -10,19 +10,20 @@ import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import PizzaBlockSkeleton from "../components/PizzaBlock/PizzaBlockSkeleton";
 import Pagination from "../components/Pagination";
+import { useAppDispatch } from "../redux/store";
 
-const Home = () => {
-  const dispatch = useDispatch();
+const Home: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { categoryId, sort, sortType } = useSelector(
-    (state) => state.filterSlice
+    (state: any) => state.filterSlice
   );
   const sortProperty = sort.property;
-  const { currentPage } = useSelector((state) => state.paginationSlice);
-  const { pizzas, status } = useSelector((state) => state.pizzasSlice);
+  const { currentPage } = useSelector((state: any) => state.filterSlice);
+  const { pizzas, status } = useSelector((state: any) => state.pizzasSlice);
   const { searchValue } = useContext(SearchContext);
   const pizzasPerPage = 8;
 
-  async function getPizzas() {
+  function getPizzas() {
     const category = categoryId ? `&category=${categoryId}` : ``;
     const order = sortType ? `&_order=asc` : `&_order=desc`;
     const search = searchValue
@@ -52,9 +53,14 @@ const Home = () => {
     window.scrollTo(0, 0);
   }, [currentPage]);
 
-  function autoTranslater(str) {
+  function autoTranslater(str: string) {
+    interface Replacer {
+      [key: string]: string;
+    }
+
     str = str.toLowerCase();
-    let replacer = {
+
+    let replacer: Replacer = {
       q: "й",
       w: "ц",
       e: "у",
@@ -94,7 +100,7 @@ const Home = () => {
     });
   }
 
-  const items = pizzas.map((obj) => {
+  const items = pizzas.map((obj: any) => {
     return <PizzaBlock key={obj.id} {...obj} />;
   });
 
@@ -109,9 +115,16 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {status === `loading` || status === `error` ? skeletons : items}
-      </div>
+      {status === `error` ? (
+        <div className="error">
+          <span> Ошибка загрузки пицц 😕</span> <br />
+          Пожалуйста, попробуйте позже
+        </div>
+      ) : (
+        <div className="content__items">
+          {status === `loading` ? skeletons : items}
+        </div>
+      )}
       <Pagination />
     </>
   );

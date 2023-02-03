@@ -88,6 +88,32 @@
     }
   }
 
+  &--disable {
+    background-color: #fff;
+    border-color: $gray-line;
+    &,
+    span {
+      color: $gray-line;
+    }
+
+    svg {
+      path {
+        fill: $gray-line;
+      }
+    }
+
+    &,
+    span {
+      color: #fff;
+    }
+
+    svg {
+      path {
+        fill: #fff;
+      }
+    }
+  }
+
   &__delimiter {
     width: 1px;
     height: 25px;

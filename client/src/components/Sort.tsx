@@ -3,15 +3,20 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { setSort, setSortType } from "../redux/slices/filterSlice";
 
-const menu = [
+type MenuItem = {
+  name: string;
+  property: `rating` | `price` | `title`;
+};
+
+const menu: MenuItem[] = [
   { name: `популярности`, property: `rating` },
   { name: `цене`, property: `price` },
   { name: `названию`, property: `title` },
 ];
 
-function Sort() {
+const Sort = () => {
   const dispatch = useDispatch();
-  const { sort, sortType } = useSelector((state) => state.filterSlice);
+  const { sort, sortType } = useSelector((state: any) => state.filterSlice);
   const [isVisible, setIsVisible] = useState(false);
 
   function sortClick() {
@@ -19,7 +24,7 @@ function Sort() {
   }
 
   return (
-    <div className="sort" tabIndex={`1`} onBlur={() => setIsVisible(false)}>
+    <div className="sort" tabIndex={1} onBlur={() => setIsVisible(false)}>
       <div className="sort__label">
         {sortType ? (
           <div title="По возрастанию">
@@ -73,6 +78,7 @@ function Sort() {
         <div className="sort__popup">
           <ul>
             {menu.map((obj, i) => {
+              console.log(obj);
               return (
                 <li
                   onClick={() => {
@@ -91,6 +97,6 @@ function Sort() {
       )}
     </div>
   );
-}
+};
 
 export default Sort;

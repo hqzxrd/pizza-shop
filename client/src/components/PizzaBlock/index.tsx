@@ -1,29 +1,52 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "../../redux/slices/cartSlice";
+import { addProduct, CartPizza } from "../../redux/slices/cartSlice";
 
-function PizzaBlock({ id, imageUrl, title, types, sizes, price }) {
-  const [pizzaType, setPizzaType] = useState(0);
-  const [pizzaSize, setPizzaSize] = useState(0);
+type PizzaBlockProps = {
+  id: number;
+  imageUrl: string;
+  title: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+};
+
+type ItemsFind = {
+  id: number;
+  type: string;
+  size: number;
+};
+
+const PizzaBlock: React.FC<PizzaBlockProps> = ({
+  id,
+  imageUrl,
+  title,
+  types,
+  sizes,
+  price,
+}) => {
+  const [pizzaType, setPizzaType] = useState<number>(0);
+  const [pizzaSize, setPizzaSize] = useState<number>(0);
   const typesName = [`Тонкая`, `Традиционная`];
 
   const dispatch = useDispatch();
-  const { items } = useSelector((state) => state.cartSlice);
+  const { pizzas } = useSelector((state: any) => state.cartSlice);
 
-  const thisItem = {
+  const thisItem: CartPizza = {
     id,
     imageUrl,
     title,
     price,
     type: typesName[pizzaType],
     size: sizes[pizzaSize],
+    count: 0,
   };
 
-  const item = items.find(
-    (obj) =>
-      obj.id == thisItem.id &&
-      obj.type == thisItem.type &&
-      obj.size == thisItem.size
+  const item = pizzas.find(
+    (obj: ItemsFind) =>
+      obj.id === thisItem.id &&
+      obj.type === thisItem.type &&
+      obj.size === thisItem.size
   );
 
   return (
@@ -82,6 +105,6 @@ function PizzaBlock({ id, imageUrl, title, types, sizes, price }) {
       </div>
     </div>
   );
-}
+};
 
 export default PizzaBlock;

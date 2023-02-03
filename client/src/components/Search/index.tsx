@@ -1,4 +1,4 @@
-import { useContext, useState, useCallback } from "react";
+import React, { useContext, useState, useCallback } from "react";
 import styles from "./Search.module.scss";
 import { SearchContext } from "../../App";
 
@@ -15,7 +15,7 @@ const Search = () => {
     []
   );
 
-  function onChangeInput(str) {
+  function onChangeInput(str: string) {
     setValue(str);
     debValue(str);
   }

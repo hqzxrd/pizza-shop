@@ -328,3 +328,13 @@ body {
     }
   }
 }
+
+.error {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 24px;
+  span {
+    font-weight: 600;
+    font-size: 32px;
+  }
+}

@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { setCategoryId } from "../redux/slices/filterSlice";
 
-function Categories() {
+const Categories = () => {
   const dispatch = useDispatch();
-  const categoryId = useSelector((state) => state.filterSlice.categoryId);
+  const categoryId = useSelector((state: any) => state.filterSlice.categoryId);
 
   const categories = [
     `Все`,
@@ -31,6 +31,6 @@ function Categories() {
       </ul>
     </div>
   );
-}
+};
 
 export default Categories;
