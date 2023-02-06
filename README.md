@@ -1,12 +1,15 @@
 # Магазин пицц на реакте!
->Стек: 
+
+> Стек:
+
 - ReactJS 18
+- TypeScript
 - React Router v6
 - Redux Toolkit
 - Axios
 - В качестве сервера - json-server
 
->Запуск:
+> Запуск:
 
 1. git clone https://github.com/hqzxrd/mypizza.git
 2. Открыть папку client
