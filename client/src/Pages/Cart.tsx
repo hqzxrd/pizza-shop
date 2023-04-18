@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 
 import CartItem from "../components/CartItem";
 import CartEmpty from "../components/CartEmpty";
@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearProducts } from "../redux/slices/cartSlice";
 
-const Cart: React.FC = () => {
+const Cart: FC = () => {
   const dispatch = useDispatch();
   const { totalPrice, totalCount, pizzas } = useSelector(
     (state: any) => state.cartSlice

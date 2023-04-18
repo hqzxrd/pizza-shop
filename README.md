@@ -1,8 +1,8 @@
-# Магазин пицц на реакте!
+# pizza-shop
 
 > Стек:
 
-- ReactJS 18
+- React18
 - TypeScript
 - React Router v6
 - Redux Toolkit
@@ -12,6 +12,6 @@
 > Запуск:
 
 1. git clone https://github.com/hqzxrd/mypizza.git
-2. Открыть папку client
+2. cd client
 3. npm i
 4. npm start

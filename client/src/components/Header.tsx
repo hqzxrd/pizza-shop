@@ -1,8 +1,9 @@
+import { FC } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Search from "./Search";
 
-const Header = () => {
+const Header: FC = () => {
   const { totalPrice, totalCount } = useSelector(
     (state: any) => state.cartSlice
   );
@@ -13,8 +14,8 @@ const Header = () => {
           <div className="header__logo">
             <img width="38" src="/img/pizza-logo.svg" alt="Pizza logo" />
             <div>
-              <h1>MyPizza</h1>
-              <p>Самая вкусная пицца на реакте :)</p>
+              <h1>PizzaShop</h1>
+              <p>hqzxrd</p>
             </div>
           </div>
         </Link>

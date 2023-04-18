@@ -1,10 +1,11 @@
+import { FC } from "react";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentPage } from "../../redux/slices/filterSlice";
 
 import styles from "./Pagination.module.scss";
 
-const Pagination = () => {
+const Pagination: FC = () => {
   const dispatch = useDispatch();
   const { pizzasPerPage } = useSelector((state: any) => state.filterSlice);
   const { pizzaCount } = useSelector((state: any) => state.pizzasSlice);

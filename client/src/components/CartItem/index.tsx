@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 
 import { useDispatch } from "react-redux";
 
@@ -20,7 +20,7 @@ type CartItemProps = {
   };
 };
 
-const CartItem: React.FC<CartItemProps> = ({ item }) => {
+const CartItem: FC<CartItemProps> = ({ item }) => {
   const dispatch = useDispatch();
   return (
     <div className="cart__item">

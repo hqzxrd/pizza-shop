@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { FC, useContext, useEffect } from "react";
 import { SearchContext } from "../App";
 
 import { useSelector } from "react-redux";
@@ -12,7 +12,7 @@ import PizzaBlockSkeleton from "../components/PizzaBlock/PizzaBlockSkeleton";
 import Pagination from "../components/Pagination";
 import { useAppDispatch } from "../redux/store";
 
-const Home: React.FC = React.memo(() => {
+const Home: FC = React.memo(() => {
   const dispatch = useAppDispatch();
   const { categoryId, sort, sortType } = useSelector(
     (state: any) => state.filterSlice

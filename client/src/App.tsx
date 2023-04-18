@@ -6,7 +6,7 @@ import NotFound from "./pages/NotFound";
 import Cart from "./pages/Cart";
 
 import { Route, Routes } from "react-router-dom";
-import { createContext, useState } from "react";
+import { createContext, useState, FC } from "react";
 
 type SearchContextType = {
   searchValue: string;
@@ -18,7 +18,7 @@ export const SearchContext = createContext<SearchContextType>({
   setSearchValue: ``,
 });
 
-function App() {
+const App: FC = () => {
   const [searchValue, setSearchValue] = useState<string>(``);
 
   return (
@@ -39,6 +39,6 @@ function App() {
       </SearchContext.Provider>
     </div>
   );
-}
+};
 
 export default App;

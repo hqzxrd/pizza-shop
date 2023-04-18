@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct, CartPizza } from "../../redux/slices/cartSlice";
 
@@ -17,7 +17,7 @@ type ItemsFind = {
   size: number;
 };
 
-const PizzaBlock: React.FC<PizzaBlockProps> = ({
+const PizzaBlock: FC<PizzaBlockProps> = ({
   id,
   imageUrl,
   title,

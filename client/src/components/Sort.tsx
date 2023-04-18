@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setSort, setSortType } from "../redux/slices/filterSlice";
@@ -14,7 +14,7 @@ const menu: MenuItem[] = [
   { name: `названию`, property: `title` },
 ];
 
-const Sort = () => {
+const Sort: FC = () => {
   const dispatch = useDispatch();
   const { sort, sortType } = useSelector((state: any) => state.filterSlice);
   const [isVisible, setIsVisible] = useState(false);

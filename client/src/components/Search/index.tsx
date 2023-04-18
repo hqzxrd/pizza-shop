@@ -1,10 +1,10 @@
-import React, { useContext, useState, useCallback } from "react";
+import { FC, useContext, useState, useCallback } from "react";
 import styles from "./Search.module.scss";
 import { SearchContext } from "../../App";
 
 import debounce from "lodash.debounce";
 
-const Search = () => {
+const Search: FC = () => {
   const [value, setValue] = useState(``);
   const { setSearchValue } = useContext(SearchContext);
 

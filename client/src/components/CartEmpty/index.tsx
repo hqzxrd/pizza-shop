@@ -1,6 +1,8 @@
+import { FC } from "react";
+
 import { Link } from "react-router-dom";
 
-const CartEmpty: React.FC = () => {
+const CartEmpty: FC = () => {
   return (
     <div className="cart cart--empty">
       <h2>Корзина пустая 😕</h2>
